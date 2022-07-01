@@ -31,3 +31,4 @@ script:
  - make clean && ENABLE_JOURNALD=0 make
  - ENABLE_JOURNALD=0 make test
  - ENABLE_JOURNALD=0 make build-binaries
+
