@@ -20,14 +20,15 @@ install:
 script:
  - make
  - make test
- - make clean && BUILD_TAGS="disable_custom_plugin_monitor" make
- - BUILD_TAGS="disable_custom_plugin_monitor" make test
- - make clean && BUILD_TAGS="disable_system_log_monitor" make
- - BUILD_TAGS="disable_system_log_monitor" make test
- - make clean && BUILD_TAGS="disable_system_stats_monitor" make
- - BUILD_TAGS="disable_system_stats_monitor" make test
- - make clean && BUILD_TAGS="disable_stackdriver_exporter" make
- - BUILD_TAGS="disable_stackdriver_exporter" make test
- - make clean && ENABLE_JOURNALD=0 make
- - ENABLE_JOURNALD=0 make test
- - ENABLE_JOURNALD=0 make build-binaries
+ - make clean && BUILD_TAGS="disable_custom_plugin_monitor" make . 2> /dev/null
+ - BUILD_TAGS="disable_custom_plugin_monitor" make test  . 2> /dev/null
+ - make clean && BUILD_TAGS="disable_system_log_monitor" make . 2> /dev/null
+ - BUILD_TAGS="disable_system_log_monitor" make test . 2> /dev/null
+ - make clean && BUILD_TAGS="disable_system_stats_monitor" make . 2> /dev/null
+ - BUILD_TAGS="disable_system_stats_monitor" make test . 2> /dev/null
+ - make clean && BUILD_TAGS="disable_stackdriver_exporter" make . 2> /dev/null
+ - BUILD_TAGS="disable_stackdriver_exporter" make test . 2> /dev/null
+ - make clean && ENABLE_JOURNALD=0 make . 2> /dev/null
+ - ENABLE_JOURNALD=0 make test . 2> /dev/null
+ - ENABLE_JOURNALD=0 make build-binaries . 2> /dev/null
+
