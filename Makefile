@@ -245,7 +245,7 @@ build-container: build-binaries Dockerfile
 	docker buildx build --platform $(DOCKER_PLATFORMS) \
  		--build-arg LOGCOUNTER=$(LOGCOUNTER) \
  		--tag $(IMAGE)-$* .
-		
+	docker buildx rm mybuilder	
 #build-container: build-binaries Dockerfile build-container-amd64 build-container-arm64
 
 $(TARBALL): ./bin/node-problem-detector ./bin/log-counter ./bin/health-checker ./test/bin/problem-maker
