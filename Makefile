@@ -16,7 +16,7 @@
 
 .PHONY: all \
         vet fmt version test e2e-test \
-        build-binaries build-container-amd64 build-container-arm64 build-container build-tar build \
+        build-binaries build-container build-tar build \
         docker-builder build-in-docker push-container push-tar push clean
 
 all: build
