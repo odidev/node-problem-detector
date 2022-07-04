@@ -20,6 +20,7 @@ install:
 script:
  - make
  - make test
+ - make push-container
  - make clean && BUILD_TAGS="disable_custom_plugin_monitor" make . 2> /dev/null 
  - BUILD_TAGS="disable_custom_plugin_monitor" make test . 2> /dev/null
  - make clean && BUILD_TAGS="disable_system_log_monitor" make . 2> /dev/null
