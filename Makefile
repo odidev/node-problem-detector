@@ -246,7 +246,7 @@ build-container: build-binaries Dockerfile
  		--build-arg LOGCOUNTER=$(LOGCOUNTER) \
  		--tag $(IMAGE)-$* .
 		
-build-container: build-binaries Dockerfile build-container-amd64 build-container-arm64
+#build-container: build-binaries Dockerfile build-container-amd64 build-container-arm64
 
 $(TARBALL): ./bin/node-problem-detector ./bin/log-counter ./bin/health-checker ./test/bin/problem-maker
 	tar -zcvf $(TARBALL) bin/ config/ test/e2e-install.sh test/bin/problem-maker
