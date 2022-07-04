@@ -240,11 +240,12 @@ $(NPD_NAME_VERSION)-%.tar.gz: $(ALL_BINARIES) test/e2e-install.sh
 build-binaries: $(ALL_BINARIES)
 
 build-container: build-binaries Dockerfile
+	gcloud auth configure-docker
 	docker run -it --rm --privileged tonistiigi/binfmt --install all
 	docker buildx create --use --name mybuilder
 	docker buildx build --platform $(DOCKER_PLATFORMS) \
  		--build-arg LOGCOUNTER=$(LOGCOUNTER) \
- 		--tag $(IMAGE)-$* .
+ 		--tag $(IMAGE)-$* --push .
 	docker buildx rm mybuilder	
 #build-container: build-binaries Dockerfile build-container-amd64 build-container-arm64
 
@@ -265,8 +266,8 @@ build-in-docker: clean docker-builder
 		-v `pwd`:/gopath/src/k8s.io/node-problem-detector/ npd-builder:latest bash \
 		-c 'cd /gopath/src/k8s.io/node-problem-detector/ && make build-binaries'
 
-push-container:
-	gcloud auth configure-docker
+#push-container:
+#	gcloud auth configure-docker
 	#docker buildx build --output=type=registry \
 	#	--build-arg LOGCOUNTER=$(LOGCOUNTER) \
 	#	--platform linux/amd64,linux/arm64 \
