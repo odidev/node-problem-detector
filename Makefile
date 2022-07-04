@@ -240,7 +240,7 @@ $(NPD_NAME_VERSION)-%.tar.gz: $(ALL_BINARIES) test/e2e-install.sh
 build-binaries: $(ALL_BINARIES)
 
 build-container: build-binaries Dockerfile
-	docker buildx build --output=type=docker \
+	docker buildx build --platform $(DOCKER_PLATFORMS) \
  		--build-arg LOGCOUNTER=$(LOGCOUNTER) \
  		--tag $(IMAGE)-$* .
 		
