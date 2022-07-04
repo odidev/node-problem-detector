@@ -266,6 +266,8 @@ push-container:
 	docker buildx build --platform $(DOCKER_PLATFORMS) \
 		--build-arg LOGCOUNTER=$(LOGCOUNTER) \
 		--tag $(IMAGE) --push .
+	docker buildx rm mybuilder
+	
 push-tar: build-tar
 	gsutil cp $(TARBALL) $(UPLOAD_PATH)/node-problem-detector/
 	gsutil cp node-problem-detector-$(VERSION)-*.tar.gz* $(UPLOAD_PATH)/node-problem-detector/
