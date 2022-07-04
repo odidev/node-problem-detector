@@ -24,7 +24,7 @@ all: build
 # PLATFORMS is the set of OS_ARCH that NPD can build against.
 LINUX_PLATFORMS=linux_amd64 linux_arm64
 PLATFORMS=$(LINUX_PLATFORMS) windows_amd64
-
+DOCKER_PLATFORMS=linux/amd64,linux/arm64
 # VERSION is the version of the binary.
 VERSION?=$(shell if [ -d .git ]; then echo `git describe --tags --dirty`; else echo "UNKNOWN"; fi)
 
@@ -74,7 +74,7 @@ endif
 # The debian-base:v1.0.0 image built from kubernetes repository is based on
 # Debian Stretch. It includes systemd 232 with support for both +XZ and +LZ4
 # compression. +LZ4 is needed on some os distros such as COS.
-#BASEIMAGE:=k8s.gcr.io/debian-base-amd64:v2.0.0
+#BASEIMAGE:=k8s.gcr.io/debian-base:v2.0.0
 
 # Disable cgo by default to make the binary statically linked.
 CGO_ENABLED:=0
@@ -243,6 +243,8 @@ build-container: build-binaries Dockerfile
 	docker buildx build --output=type=docker \
  		--build-arg LOGCOUNTER=$(LOGCOUNTER) \
  		--tag $(IMAGE)-$* .
+		
+build-container: build-binaries Dockerfile build-container-amd64 build-container-arm64
 
 $(TARBALL): ./bin/node-problem-detector ./bin/log-counter ./bin/health-checker ./test/bin/problem-maker
 	tar -zcvf $(TARBALL) bin/ config/ test/e2e-install.sh test/bin/problem-maker
