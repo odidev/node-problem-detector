@@ -267,10 +267,10 @@ build-in-docker: clean docker-builder
 
 push-container:
 	gcloud auth configure-docker
-	docker buildx build --output=type=registry \
-		--build-arg LOGCOUNTER=$(LOGCOUNTER) \
-		--platform linux/amd64,linux/arm64 \
-		--tag $(IMAGE) .
+	#docker buildx build --output=type=registry \
+	#	--build-arg LOGCOUNTER=$(LOGCOUNTER) \
+	#	--platform linux/amd64,linux/arm64 \
+	#	--tag $(IMAGE) .
 push-tar: build-tar
 	gsutil cp $(TARBALL) $(UPLOAD_PATH)/node-problem-detector/
 	gsutil cp node-problem-detector-$(VERSION)-*.tar.gz* $(UPLOAD_PATH)/node-problem-detector/
