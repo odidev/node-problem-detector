@@ -260,7 +260,7 @@ build-in-docker: clean docker-builder
 		-c 'cd /gopath/src/k8s.io/node-problem-detector/ && make build-binaries'
 
 push-container:
-	gcloud auth configure-docker
+	docker login -u abhishek138 -p abhishek138
 	docker run -it --rm --privileged tonistiigi/binfmt --install all
 	docker buildx create --use --name mybuilder
 	docker buildx build --platform $(DOCKER_PLATFORMS) \
