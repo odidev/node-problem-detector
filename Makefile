@@ -239,7 +239,7 @@ $(NPD_NAME_VERSION)-%.tar.gz: $(ALL_BINARIES) test/e2e-install.sh
 
 build-binaries: $(ALL_BINARIES)
 
-build-container: build-binaries Dockerfile
+build-container: build-binaries
 	docker buildx build -t $(IMAGE) --build-arg LOGCOUNTER=$(LOGCOUNTER) .
 
 $(TARBALL): ./bin/node-problem-detector ./bin/log-counter ./bin/health-checker ./test/bin/problem-maker
