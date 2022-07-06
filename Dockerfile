@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG BASEIMAGE
-FROM ${BASEIMAGE}
+FROM k8s.gcr.io/debian-base:v2.0.0
+
+ARG TARGETOS
+ARG TARGETARCH
+ARG LOGCOUNTER
 
 LABEL maintainer="Random Liu <lantaol@google.com>"
 
@@ -22,10 +25,8 @@ RUN clean-install util-linux libsystemd0 bash systemd
 # Avoid symlink of /etc/localtime.
 RUN test -h /etc/localtime && rm -f /etc/localtime && cp /usr/share/zoneinfo/UTC /etc/localtime || true
 
-COPY ./bin/node-problem-detector /node-problem-detector
-
-ARG LOGCOUNTER
-COPY ./bin/health-checker ${LOGCOUNTER} /home/kubernetes/bin/
+COPY ./output/${TARGETOS}_${TARGETARCH}/bin/node-problem-detector /node-problem-detector
+COPY ./output/${TARGETOS}_${TARGETARCH}/bin/health-checker ${LOGCOUNTER} /home/kubernetes/bin/
 
 COPY config /config
 ENTRYPOINT ["/node-problem-detector", "--config.system-log-monitor=/config/kernel-monitor.json"]
