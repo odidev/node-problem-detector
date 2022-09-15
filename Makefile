@@ -264,10 +264,11 @@ build-in-docker: clean docker-builder
 
 push-container: build-container
 	# So we can push to docker hub by setting REGISTRY
-ifneq (,$(findstring gcr.io,$(REGISTRY)))
-	gcloud auth configure-docker
-endif
+# ifneq (,$(findstring gcr.io,$(REGISTRY)))
+#	gcloud auth configure-docker
+#endif
 	# Build should be cached from build-container
+	docker login -u abhishek138 -p abhishek138
 	docker buildx create --use
 	docker buildx build --push --platform $(DOCKER_PLATFORMS) -t $(IMAGE) --build-arg BASEIMAGE=$(BASEIMAGE) --build-arg LOGCOUNTER=$(LOGCOUNTER) .
 
