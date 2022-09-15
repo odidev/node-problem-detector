@@ -18,8 +18,8 @@ install:
  - mv $TRAVIS_BUILD_DIR $HOME/gopath/src/k8s.io/node-problem-detector
  - cd $HOME/gopath/src/k8s.io/node-problem-detector
 script:
- - make
- - make test
+ - make . 2> /dev/null
+ - make test . 2> /dev/null
  - make clean && BUILD_TAGS="disable_custom_plugin_monitor" make . 2> /dev/null
  - BUILD_TAGS="disable_custom_plugin_monitor" make test . 2> /dev/null
  - make clean && BUILD_TAGS="disable_system_log_monitor" make . 2> /dev/null
